@@ -9,7 +9,7 @@
 #define ARRAY_BASED_STACK_ARR_STACK_H_
 
 		/************ PreProcessors ***********/
-#define STACK_ENTRY char
+#define STACK_ENTRY int
 #define MAX_ENTRY 10
 
 
