@@ -47,9 +47,9 @@ int stackSize(Stack * const ps){
 
 void traverseStack(Stack * const ps,void(*pf)(STACK_ENTRY)){
 
-	for(int i= ps->top; i>=0; --i)
+	for(int i= ps->top; i>0; --i)
 	{
-		(*pf)(ps->Entry[i]);
+		(*pf)(ps->Entry[i-1]);
 	}
 }
 
