@@ -31,6 +31,9 @@ void stackTop(STACK_ENTRY * const,Stack * const ps);
 int stackSize(Stack * const ps);
 void traverseStack(Stack * const ps,void(*pf)(STACK_ENTRY));
 
+		/************Additional Function APIs ***********/
+void stackBottom(STACK_ENTRY * const,Stack * const ps);
+bool copyStack(Stack * const,Stack * const);
 
 
 #endif /* ARRAY_BASED_STACK_ARR_STACK_H_ */

@@ -53,8 +53,22 @@ void traverseStack(Stack * const ps,void(*pf)(STACK_ENTRY)){
 	}
 }
 
+void stackBottom(STACK_ENTRY * const pe,Stack * const ps){
+	*pe = ps->Entry[0];
+}
 
+bool copyStack(Stack * const pFromStack,Stack * const pIntoStack){
 
+	for (int var = 0; var < MAX_ENTRY; ++var) {
+		if(!(pFromStack->top == MAX_ENTRY) )
+		pIntoStack->Entry[var] = pFromStack->Entry[var];
+		else
+		{
+			return false;
+		}
+	}
+	return true;
+}
 
 
 

@@ -12,7 +12,7 @@ void createStack(Stack * const ps){
 }
 
 bool pushStack(STACK_ENTRY element,Stack * const ps){
-	StackNode *pn = (StackNode*)malloc(sizeof(StackNode));
+	StackNode *pn = new StackNode;
 	if(pn)
 	{
 		pn->Entry = element;
