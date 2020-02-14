@@ -1,35 +1,42 @@
 /*
- * Arr_list.h
+ * Lin_list.h
  *
  *  Created on: Feb 14, 2020
  *      Author: an
  */
 
-#ifndef ARR_LIST_H_
-#define ARR_LIST_H_
+#ifndef LIN_LIST_H_
+#define LIN_LIST_H_
 
+#include <stdio.h>
 
 		/************ PreProcessors ***********/
 #define LIST_ENTRY int
-#define MAX_LIST 10
+
 
 		/************ Structures ***********/
+typedef struct ListNode{
+	LIST_ENTRY Entry;
+	ListNode *next;
+};
+
 typedef struct List{
-	LIST_ENTRY Entry[MAX_LIST];
+	ListNode *head;
 	int size;
 };
 		/************ Function APIs ***********/
+
 void createList(List * const);
-void insertIntoList(int, LIST_ENTRY,List * const);
+bool insertIntoList(int, LIST_ENTRY,List * const);
 void deleteFromList(int, LIST_ENTRY * const, List * const);
 bool listEmpty(List * const);
 bool listFull(List * const);
 void traverseList(List * const, void(*pf)(LIST_ENTRY));
 void clearList(List * const);
 int listSize(List * const);
-void copyList(List *const, List *const);
 void retrieveFromList(int, LIST_ENTRY * const, List * const);
 void replaceElementInList(int, LIST_ENTRY, List * const);
 
 
-#endif /* ARR_LIST_H_ */
+
+#endif /* LIN_LIST_H_ */

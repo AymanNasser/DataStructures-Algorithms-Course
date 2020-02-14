@@ -40,7 +40,7 @@ void deleteFromList(int pos, LIST_ENTRY * const pe, List * const pl){
  * is empty
  * if pl->size != 0 , therefore the list isn't empty and !(size) == 0
  * */
-bool ListEmpty(List * const pl){
+bool listEmpty(List * const pl){
 	return !(pl->size) ;
 }
 /* Checking if the list is full
@@ -48,7 +48,7 @@ bool ListEmpty(List * const pl){
  * indicates that the list is full
  * if pl->size != MAX_LIST , therefore the list isn't empty and and condition is false returning 0
  * */
-bool ListFull(List * const pl){
+bool listFull(List * const pl){
 	return (pl->size == MAX_LIST) ;
 }
 /* Passing list elements to a function using pointer to function (pf) as an argument */
@@ -62,7 +62,7 @@ void clearList(List * const pl){
 	pl->size =0;
 }
 
-int ListSize(List * const pl){
+int listSize(List * const pl){
 	return pl->size ;
 }
 /* Copy List contents to another list */
