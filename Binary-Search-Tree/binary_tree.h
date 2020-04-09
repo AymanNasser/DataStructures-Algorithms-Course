@@ -27,8 +27,10 @@ typedef struct Tree{
 };
 
 /********************* Function APIs *******************/
-void insertTree(Tree * const, TREE_ENTRY * const);
-
+void insertTreeIte(Tree * const, TREE_ENTRY * const);
+void insertTreeRec(Tree * const pt, TREE_ENTRY * const pe);
+bool findItemTreeIte(Tree * const, TREE_ENTRY * const);
+bool deleteItemTree();
 
 void createTree(Tree * const);
 void clearTree(Tree * const);

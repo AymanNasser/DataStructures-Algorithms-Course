@@ -7,20 +7,69 @@
 
 #include "binary_tree.h"
 
-static void auxilaryTraverseTree(TreeNode *pt, void (*pf)(TREE_ENTRY element)){
+static bool auxiliaryfindItemTree(TreeNode * pt, TREE_ENTRY * pe){
+
+	bool found = false;
+
+	TreeNode *pTemp = pt;
+
+	while(pTemp != NULL){
+
+		if(pTemp->entry == *pe)
+		{
+			found = true;
+			break;
+		}
+
+		else if(pTemp->entry > *pe)
+			pTemp = pTemp->left;
+
+		else
+			pTemp = pTemp->right;
+
+	}
+
+	return found;
+}
+
+
+
+static void auxiliaryInsertTree(TreeNode *pt, TREE_ENTRY *pe, int *pDepth){
+
+	/* Checking if the subtree is empty ==> base condition */
+	if(! pt )
+	{
+		pt = new TreeNode;
+		pt->entry = *pe;
+		pt->left = NULL;
+		pt->right = NULL;
+	}
+	else if( *pe < pt->entry )
+	{
+		auxiliaryInsertTree(pt->left, pe, pDepth);
+	}
+	else
+	{
+		auxiliaryInsertTree(pt->right, pe, pDepth);
+	}
+
+
+}
+
+static void auxiliaryTraverseTree(TreeNode *pt, void (*pf)(TREE_ENTRY element)){
 
 	if(pt){
-		auxilaryTraverseTree(pt->left, pf);
+		auxiliaryTraverseTree(pt->left, pf);
 		(*pf)(pt->entry);
-		auxilaryTraverseTree(pt->right,pf);
+		auxiliaryTraverseTree(pt->right,pf);
 		(*pf)(pt->entry);
 	}
 }
 
-static void auxilaryClearTree(TreeNode * pt ){
+static void auxiliaryClearTree(TreeNode * pt ){
 	if(pt){
-		auxilaryClearTree(pt->left);
-		auxilaryClearTree(pt->right);
+		auxiliaryClearTree(pt->left);
+		auxiliaryClearTree(pt->right);
 		delete pt;
 	}
 }
@@ -32,7 +81,7 @@ void createTree(Tree * const pt){
 }
 
 void clearTree(Tree * const pt ){
-	auxilaryClearTree(pt->root);
+	auxiliaryClearTree(pt->root);
 
 	pt->size =0;
 	pt->depth = 0;
@@ -59,7 +108,7 @@ bool treeFull(Tree * const){
 
 
 void inOrderTraverse(Tree * const pt, void (*pf)(TREE_ENTRY element)){
-	auxilaryTraverseTree(pt->root, pf);
+	auxiliaryTraverseTree(pt->root, pf);
 }
 void preOrderTraverse(Tree *const, void (*pf)(TREE_ENTRY)){
 
@@ -69,15 +118,84 @@ void postOrderTraverse(Tree *const, void (*pf)(TREE_ENTRY)){
 }
 
 
-void insertTree(Tree * const pt, TREE_ENTRY * const pe){
+void insertTreeRec(Tree * const pt, TREE_ENTRY * const pe){
 
+	int tempDepth = 0;
+	auxiliaryInsertTree(pt->root, pe, &tempDepth);
+
+	pt->size++;
+
+	if(pt->depth < tempDepth)
+		pt->depth = tempDepth ;
+}
+
+void insertTreeIte(Tree * const pt, TREE_ENTRY * const pe){
+
+	/* Depth of a tree is at least 1 if the tree has only the root &
+	 * will be incremented at each traversing of the tree to return
+	 * the right depth of the tree
+	 * */
+	int tempDepth = 1;
+
+	/* 1- Creating new node
+	 * 2- Initializing the new created node
+	 * 3- Checking if the tree has only root or it consists of many
+	 * node so traversing upon them to find the right place to insert
+	 * the new node
+	 * */
+
+	TreeNode *pTemp = new TreeNode;
+	TreeNode *currentIndex, *previousIndex;
+	pTemp->entry = *pe;
+	pTemp->left = NULL;
+	pTemp->right = NULL;
+
+	if(! pt->root )
+	{
+		pt->root = pTemp;
+	}
+	else
+	{
+		currentIndex = pt->root;
+		/* Traversing the sub-trees till NULL found so it means that we found
+		 * the place to insert
+		 * */
+		while(currentIndex != NULL)
+		{
+			previousIndex = currentIndex;
+
+			if( *pe < currentIndex->entry )
+			{
+				currentIndex = currentIndex->left;
+			}
+			else
+			{
+				currentIndex = currentIndex->right;
+			}
+			tempDepth++;
+		}
+		/* Checking if the element to be inserted is smaller than current Key
+		 * smaller == > inserted to left of the current node
+		 * greater or equal == > inserted to right of the current node
+		 * */
+
+		if( *pe < previousIndex->entry)
+			previousIndex->left = pTemp;
+		else
+			previousIndex->right = pTemp;
+
+	}
+	pt->size++;
+
+	if(pt->depth < tempDepth)
+		pt->depth = tempDepth;
 
 }
 
 
-
-
-
+bool findItemTreeIte(Tree * const pt, TREE_ENTRY * const pe){
+	return auxiliaryfindItemTree(pt->root, pe);
+}
 
 
 
