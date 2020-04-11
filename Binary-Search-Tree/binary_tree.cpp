@@ -7,6 +7,18 @@
 
 #include "binary_tree.h"
 
+static int auxiliaryBalancedTreeRec(TreeNode * pt){
+
+	if(pt == NULL)
+		return 0;
+
+	int a = auxiliaryBalancedTreeRec(pt->left);
+	int b = auxiliaryBalancedTreeRec(pt->right);
+
+	return (a > b) ? a+1 : b+1 ;
+}
+
+
 static bool auxiliaryfindItemTree(TreeNode * pt, TREE_ENTRY * pe){
 
 	bool found = false;
@@ -197,7 +209,24 @@ bool findItemTreeIte(Tree * const pt, TREE_ENTRY * const pe){
 	return auxiliaryfindItemTree(pt->root, pe);
 }
 
+bool isTreeBalanced(Tree * const pt){
 
+	if(!pt->root)
+		return true;
+
+	int leftSubTree = auxiliaryBalancedTreeRec(pt->root->left);
+	int rightSubTree = auxiliaryBalancedTreeRec(pt->root->right);
+
+	if(leftSubTree == rightSubTree)
+		return true;
+
+	else if(leftSubTree-rightSubTree ==1 || leftSubTree-rightSubTree == -1)
+		return true;
+
+	else
+		return false;
+
+}
 
 
 
