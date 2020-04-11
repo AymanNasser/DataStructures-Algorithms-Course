@@ -7,15 +7,37 @@
 
 #include "binary_tree.h"
 
-static int auxiliaryBalancedTreeRec(TreeNode * pt){
+static int auxiliaryHeightTreeRec(TreeNode * pt){
 
 	if(pt == NULL)
 		return 0;
 
-	int a = auxiliaryBalancedTreeRec(pt->left);
-	int b = auxiliaryBalancedTreeRec(pt->right);
+	int a = auxiliaryHeightTreeRec(pt->left);
+	int b = auxiliaryHeightTreeRec(pt->right);
 
 	return (a > b) ? a+1 : b+1 ;
+}
+
+static bool auxiliaryIsTreeBalanced(TreeNode * pt){
+
+
+	if(pt == NULL )
+		return true;
+
+	int leftSubTree = auxiliaryHeightTreeRec(pt->left);
+	int rightSubTree = auxiliaryHeightTreeRec(pt->right);
+
+	if((leftSubTree - rightSubTree) == 0 && auxiliaryIsTreeBalanced(pt->left) &&
+			auxiliaryIsTreeBalanced(pt->right))
+		return true;
+
+	else if( ((leftSubTree - rightSubTree) == -1 || (leftSubTree - rightSubTree) == 1)
+			&& auxiliaryIsTreeBalanced(pt->left) && auxiliaryIsTreeBalanced(pt->right))
+		return true;
+
+	else
+		return false;
+
 }
 
 
@@ -211,21 +233,7 @@ bool findItemTreeIte(Tree * const pt, TREE_ENTRY * const pe){
 
 bool isTreeBalanced(Tree * const pt){
 
-	if(!pt->root)
-		return true;
-
-	int leftSubTree = auxiliaryBalancedTreeRec(pt->root->left);
-	int rightSubTree = auxiliaryBalancedTreeRec(pt->root->right);
-
-	if(leftSubTree == rightSubTree)
-		return true;
-
-	else if(leftSubTree-rightSubTree ==1 || leftSubTree-rightSubTree == -1)
-		return true;
-
-	else
-		return false;
-
+	return auxiliaryIsTreeBalanced(pt->root);
 }
 
 
