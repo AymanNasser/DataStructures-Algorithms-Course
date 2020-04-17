@@ -55,7 +55,7 @@ long longestCommonSubsequenceCount(string A, string B, string &output){
 				lcs[rowSize][columnSize] = max(lcs[rowSize-1][columnSize],lcs[rowSize][columnSize-1]);
 		}
 	}
-	lcsString(lcs, A.length(), B.length(), output);
+//	lcsString(lcs, A.length(), B.length(), output);
 
 	return lcs[A.length()][B.length()];
 }
