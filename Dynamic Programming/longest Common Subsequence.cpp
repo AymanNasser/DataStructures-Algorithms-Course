@@ -32,6 +32,10 @@ void lcsString(long **ptr, long row, long column, string &temp){
 
 }
 
+/* LCS Problem Statement: Given two sequences, find the length of longest subsequence present in both of them. A subsequence is a sequence that appears in the same relative order, but not necessarily contiguous. 
+ * For example, “abc”, “abg”, “bdf”, “aeg”, ‘”acefg”, .. etc are subsequences of “abcdefg”.
+ */ 
+
 long longestCommonSubsequenceCount(string A, string B, string &output){
 
 	//long lcs[A.length() +1][B.length() +1];
@@ -47,10 +51,10 @@ long longestCommonSubsequenceCount(string A, string B, string &output){
 
 			if(rowSize == 0 || columnSize == 0)
 				lcs[rowSize][columnSize] = 0;
-
+            // Diagonal value
 			else if(A[rowSize-1] == B[columnSize-1])
 				lcs[rowSize][columnSize] = lcs[rowSize-1][columnSize-1] + 1;
-
+            // Max of top value & left value
 			else
 				lcs[rowSize][columnSize] = max(lcs[rowSize-1][columnSize],lcs[rowSize][columnSize-1]);
 		}
