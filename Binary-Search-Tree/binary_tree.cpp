@@ -87,7 +87,7 @@ static void auxiliaryInsertTree(TreeNode *pt, TREE_ENTRY *pe, int *pDepth){
 		auxiliaryInsertTree(pt->right, pe, pDepth);
 	}
 
-
+    (*pDepth)++;
 }
 
 static void auxiliaryTraverseTree(TreeNode *pt, void (*pf)(TREE_ENTRY element)){

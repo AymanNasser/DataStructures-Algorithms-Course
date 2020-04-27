@@ -38,10 +38,7 @@ void lcsString(long **ptr, long row, long column, string &temp){
 
 long longestCommonSubsequenceCount(string A, string B, string &output){
 
-	//long lcs[A.length() +1][B.length() +1];
-	long** lcs = new long*[A.length()];
-	for(int i = 0; i < B.length(); ++i)
-	    lcs[i] = new long[B.length()];
+	long lcs[A.length() +1][B.length() +1];
 
 	// Initializing auxiliary row[0][] &column[][0] with 0
 
