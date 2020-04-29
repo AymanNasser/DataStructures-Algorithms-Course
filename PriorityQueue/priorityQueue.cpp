@@ -25,7 +25,7 @@ long priorityQueue::rightChild(long index){return index*2 +1;}
 void priorityQueue::shiftUp(long index){
     
     // Looping over the height till we approach a level where the parent priority is max of left & right childs
-	while(index > 1 && this->pHeap[parent(index)] > this->pHeap[index] ){
+	while(index > 1 && this->pHeap[parent(index)] < this->pHeap[index] ){
 		std::swap(this->pHeap[parent(index)], this->pHeap[index]);
 		index = index / 2; // index = parent(index)
 	}
@@ -35,7 +35,7 @@ void priorityQueue::shiftDown(long index){
 
 	long maxIndex = index;
 	long right = index*2 + 1; // right child at index = 2*index + 1
-	long left = index*2 + 1; // left child at index = 2*index
+	long left = index*2 ; // left child at index = 2*index
 
 	if(left <= this->size && this->pHeap[left] > this->pHeap[maxIndex])
 		maxIndex = left;
@@ -44,10 +44,13 @@ void priorityQueue::shiftDown(long index){
 		maxIndex = right;
 
 	if(maxIndex != index)
+	{
 		std::swap(this->pHeap[index], this->pHeap[maxIndex]);
+		shiftDown(maxIndex);
+	}
 	else{}
 
-	shiftDown(maxIndex);
+
 }
 
 

@@ -10,7 +10,8 @@
 
 #include <algorithm>
 
-/* Implementation of a priority queue using heaps on complete binary tree to benefit from O(log(n)) height  
+/* Implementation of a priority queue using Binary Heap which is a Complete Binary Tree (to benefit from O(log(n)) height) where items
+ * are stored in a special order such that value in a parent node is greater than the values in its two children nodes
 */
 
 class priorityQueue {
@@ -34,6 +35,7 @@ public:
 	long extractMax();
 	void remove(long);
 	void changeValue(long,long);
+
 };
 
 #endif /* PRIORITYQUEUE_H_ */
