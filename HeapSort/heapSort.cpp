@@ -7,6 +7,8 @@
 
 #include <algorithm>
 
+// Building binary max-heap using 0-based index
+
 
 void shiftDown(long *ptr,long size,long index){
 
@@ -14,10 +16,10 @@ void shiftDown(long *ptr,long size,long index){
 	long right = index*2 + 1; // right child at index = 2*index + 1
 	long left = index*2 ; // left child at index = 2*index
 
-	if(left <= size && ptr[left] > ptr[maxIndex])
+	if(left < size && ptr[left] > ptr[maxIndex])
 		maxIndex = left;
 
-	if(right <= size && ptr[right] > ptr[maxIndex])
+	if(right < size && ptr[right] > ptr[maxIndex])
 		maxIndex = right;
 
 	if(maxIndex != index)
@@ -31,8 +33,11 @@ void shiftDown(long *ptr,long size,long index){
 
 
 void buildMaxHeap(long *ptr, long size){
-
-	for (long var = size / 2; var >= 1; --var) {
+    
+    /* Begining the heapify procedure from size = (size of tree / 2) because the heap property will not be violated 
+     * for the nodes of of last edges but it may be violated for all upper nodes, repairing heap propery from bottom to top
+    */
+	for (long var = size / 2; var >= 0; --var) {
 
 		shiftDown(ptr,size,var);
 	}
@@ -43,14 +48,15 @@ void heapSort(long *ptr, long size){
 
 	buildMaxHeap(ptr,size);
 
-	for (long var = 0; var < size-1; ++var) {
+	for (long var = size - 1; var > 0; --var) {
 
-		std::swap(ptr[1], ptr[size]);
-		--size;
-		shiftDown(ptr,size,1);
+		std::swap(ptr[0], ptr[var]);
+		shiftDown(ptr,var,0);
 	}
 
 }
+
+
 
 
 
