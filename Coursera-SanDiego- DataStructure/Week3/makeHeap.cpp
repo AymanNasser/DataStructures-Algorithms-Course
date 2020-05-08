@@ -50,25 +50,25 @@ int main()
     return 0;
 }
 
-
+// Min-heap 0-based indexing
 void shiftDown(long *ptr,long size,long index, long &maxSwaps, vector<pair <long,long>> &swapa_j){
 
-	long maxIndex = index;
+	long minIndex = index;
 	long right = index*2 + 2; // right child at index = 2*index + 2
 	long left = index*2 + 1; // left child at index = 2*index + 1
 
 	if(left < size && ptr[left] < ptr[maxIndex])
-		maxIndex = left;
+		minIndex = left;
 
 	if(right < size && ptr[right] < ptr[maxIndex])
-		maxIndex = right;
+		minIndex = right;
 
-	if(maxIndex != index)
+	if(minIndex != index)
 	{
-		std::swap(ptr[index], ptr[maxIndex]);
-		swapa_j.push_back(make_pair(index, maxIndex));
+		std::swap(ptr[index], ptr[minIndex]);
+		swapa_j.push_back(make_pair(index, minIndex));
 
-		shiftDown(ptr,size, maxIndex,maxSwaps,swapa_j);
+		shiftDown(ptr,size, minIndex,maxSwaps,swapa_j);
 		maxSwaps++;
 	}
 	else{}
